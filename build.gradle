@@ -1,0 +1,53 @@
+apply plugin: 'groovy'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+
+war {
+//    dependsOn ':flex:swf:compileFlex'
+//    from(project(':flex:swf').compileFlex)
+}
+
+tomcatRun{
+    contextPath= '/'
+
+}
+
+tomcatRunWar{
+    contextPath= '/'
+
+}
+
+dependencies {
+
+
+    providedCompile "javax.servlet:servlet-api:3.0-alpha-1"
+    compile 'org.codehaus.groovy:groovy:2.4.3'
+    compile "org.springframework:spring-webmvc:4.1.6.RELEASE"
+    compile "org.springframework.flex:spring-flex-core:1.6.0.RC1"
+
+    def tomcatVersion = '7.0.61'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+}
+
+//tomcat {
+//    httpPort = 8090
+//    httpsPort = 8091
+//}
